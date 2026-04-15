@@ -35,7 +35,7 @@ export default function AuthPage() {
     
     // Show message if login required for history
     if (params.get('requireLogin') === 'true') {
-      toast.info('Please login to view your measurement history');
+      toast.info('Please login to view your measurement history', { toastId: 'requireLoginToast' });
     }
   }, []);
 

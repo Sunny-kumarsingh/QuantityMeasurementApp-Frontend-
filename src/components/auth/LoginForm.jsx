@@ -19,7 +19,7 @@ export default function LoginForm({ onSwitch }) {
     setLoading(true);
     const success = await login(email, password);
     setLoading(false);
-    
+
     if (success) {
       navigate('/dashboard');
     }

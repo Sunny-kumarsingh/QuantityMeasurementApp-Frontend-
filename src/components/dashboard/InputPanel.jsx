@@ -135,13 +135,7 @@ export default function InputPanel({ measureType, action }) {
     }
   }, [fromVal, toVal, fromUnit, toUnit, op, action, measureType]);
 
-  useEffect(() => { 
-    // ✅ Skip calculation if temperature arithmetic
-    if (measureType === 'temperature' && action === 'arithmetic') {
-      return;
-    }
-    calculate(); 
-  }, [calculate, measureType, action]);
+  // Replaced auto-calculation useEffect with a manual button
 
   const isConversion = action === 'conversion';
   const inputCls = 'font-raleway text-[32px] font-extrabold text-[#1a1a2e] border-0 border-b-2 border-[#e0e7ff] outline-none bg-transparent w-full py-1 transition-all duration-200 focus:border-[#3b5bdb] max-sm:text-2xl';
@@ -189,9 +183,19 @@ export default function InputPanel({ measureType, action }) {
         </div>
       </div>
 
-      <div key={resultKey} className="mt-6 flex items-center gap-3.5 bg-[#eef2ff] rounded-[10px] px-5 py-3.5 border-l-4 border-[#3b5bdb] min-h-[52px] animate-popIn">
+      <div className="mt-6 flex justify-end">
+        <button
+          onClick={calculate}
+          disabled={loading || (measureType === 'temperature' && action === 'arithmetic')}
+          className="bg-[#3b5bdb] hover:bg-[#2c47ab] disabled:bg-gray-400 text-white font-nunito font-extrabold tracking-wide py-2.5 px-8 rounded-[8px] shadow-[0_4px_12px_rgba(59,91,219,0.25)] transition-all duration-200 uppercase text-sm"
+        >
+          Calculate
+        </button>
+      </div>
+
+      <div key={resultKey} className="mt-4 flex items-center gap-3.5 bg-[#eef2ff] rounded-[10px] px-5 py-3.5 border-l-4 border-[#3b5bdb] min-h-[52px] animate-popIn">
         <span className={`text-[17px] font-extrabold tracking-wide max-sm:text-sm ${isError ? 'text-[#e53935]' : 'text-[#3b5bdb]'}`}>
-          {loading ? 'Calculating...' : (result || 'Select type and values to begin')}
+          {loading ? 'Calculating...' : (result || 'Click calculate to see the result')}
         </span>
       </div>
     </div>

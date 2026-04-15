@@ -6,7 +6,7 @@ const AUTH_BASE_URL = 'http://localhost:8080/auth';
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,  // ✅ sends cookie automatically
+  withCredentials: true,  // sends cookie automatically
 });
 
 // ✅ Read token from cookie if localStorage doesn't have it

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api';
-const AUTH_BASE_URL = 'http://localhost:8080/auth';
+const BASE_DOMAIN = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = `${BASE_DOMAIN}/api`;
+const AUTH_BASE_URL = `${BASE_DOMAIN}/auth`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -36,7 +37,7 @@ export const authAPI = {
     headers: { Authorization: `Bearer ${getTokenFromCookie() || localStorage.getItem('token') || ''}` }
   }),
    getOAuthUrl: (provider = 'google') => 
-    `http://localhost:8080/oauth2/authorization/${provider}`,
+    `${BASE_DOMAIN}/oauth2/authorization/${provider}`,
 };
 
 export const quantityAPI = {

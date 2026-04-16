@@ -49,7 +49,8 @@ export function AuthProvider({ children }) {
   const fetchUserFromBackend = async () => {
     try {
       console.log("📡 Fetching user from backend...");
-      const response = await axios.get('http://localhost:8080/api/auth/me', {
+      const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+      const response = await axios.get(`${baseURL}/api/auth/me`, {
         withCredentials: true
       });
       

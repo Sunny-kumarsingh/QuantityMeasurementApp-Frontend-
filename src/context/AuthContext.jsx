@@ -77,7 +77,11 @@ export function AuthProvider({ children }) {
     try {
       const response = await authAPI.login({ email, password });
       if (response.data.success) {
-        // Don't store token in localStorage anymore - use cookie only
+        // Save the token to localStorage since cross-domain cookies are blocked
+        if (response.data.token) {
+          localStorage.setItem('token', response.data.token);
+        }
+        
         const user = { 
           email: response.data.email, 
           name: response.data.name || email.split('@')[0] 
@@ -113,6 +117,7 @@ export function AuthProvider({ children }) {
     } catch (error) {
       console.error('Logout error:', error);
     }
+    localStorage.removeItem('token');
     setSessionState(null);
     toast.info('Logged out');
   }
